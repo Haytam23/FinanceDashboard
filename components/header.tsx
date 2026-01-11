@@ -14,13 +14,16 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import { MobileSidebarTrigger } from "@/components/sidebar"
 
 interface HeaderProps {
   riskProfile: "conservative" | "balanced" | "aggressive"
   setRiskProfile: (profile: "conservative" | "balanced" | "aggressive") => void
+  activeTab: "overview" | "stocks" | "risk" | "chatbot"
+  setActiveTab: (tab: "overview" | "stocks" | "risk" | "chatbot") => void
 }
 
-export default function Header({ riskProfile, setRiskProfile }: HeaderProps) {
+export default function Header({ riskProfile, setRiskProfile, activeTab, setActiveTab }: HeaderProps) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [marketData, setMarketData] = useState<any>(null)
@@ -52,14 +55,17 @@ export default function Header({ riskProfile, setRiskProfile }: HeaderProps) {
   return (
     <header className="border-b border-border/50 bg-card/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 py-4 max-w-[1600px] flex items-center justify-between gap-4">
-        {/* Logo & Title */}
-        <div className="flex items-center gap-3">
+        {/* Mobile Menu + Logo & Title */}
+        <div className="flex items-center gap-2">
+          <MobileSidebarTrigger activeTab={activeTab} setActiveTab={setActiveTab} />
+          <div className="flex items-center gap-3">
           <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-md">
             <TrendingUp className="text-primary-foreground h-6 w-6" />
           </div>
-          <div>
-            <h1 className="text-lg sm:text-xl font-bold text-foreground">Casablanca Exchange</h1>
-            <p className="text-xs text-muted-foreground hidden sm:block">AI-Powered Market Intelligence</p>
+            <div>
+              <h1 className="text-lg sm:text-xl font-bold text-foreground">Casablanca Exchange</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">AI-Powered Market Intelligence</p>
+            </div>
           </div>
         </div>
 

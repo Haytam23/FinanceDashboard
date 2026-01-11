@@ -1,37 +1,46 @@
 "use client"
 
+import { useState } from "react"
 import { Card } from "@/components/ui/card"
-import { LayoutDashboard, BarChart3, Shield, BookOpen, MessageCircle } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { LayoutDashboard, BarChart3, Shield, MessageCircle, Menu, X } from "lucide-react"
 
 interface SidebarProps {
   activeTab: "overview" | "stocks" | "risk" | "chatbot"
   setActiveTab: (tab: "overview" | "stocks" | "risk" | "chatbot") => void
 }
 
-export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
-  const tabs = [
-    { 
-      id: "overview", 
-      label: "Dashboard", 
-      icon: LayoutDashboard, 
-      description: "Market overview & insights" 
-    },
-    { 
-      id: "stocks", 
-      label: "Stocks", 
-      icon: BarChart3, 
-      description: "Individual stock analysis" 
-    },
-    { 
-      id: "risk", 
-      label: "Risk Analysis", 
-      icon: Shield, 
-      description: "Portfolio risk metrics" 
-    },
-  ]
+const tabs = [
+  { 
+    id: "overview", 
+    label: "Dashboard", 
+    icon: LayoutDashboard, 
+    description: "Market overview & insights" 
+  },
+  { 
+    id: "stocks", 
+    label: "Stocks", 
+    icon: BarChart3, 
+    description: "Individual stock analysis" 
+  },
+  { 
+    id: "risk", 
+    label: "Risk Analysis", 
+    icon: Shield, 
+    description: "Portfolio risk metrics" 
+  },
+  { 
+    id: "chatbot", 
+    label: "AI Assistant", 
+    icon: MessageCircle, 
+    description: "Chat & learn about stocks" 
+  },
+]
 
+function SidebarContent({ activeTab, setActiveTab, onNavigate }: SidebarProps & { onNavigate?: () => void }) {
   return (
-    <aside className="hidden lg:flex lg:w-72 bg-gradient-to-b from-card to-card/50 border-r border-border/50 flex-col p-6 gap-6 shadow-lg">
+    <>
       {/* Logo */}
       <div className="flex items-center gap-3 px-3 py-4 border-b border-border/50">
         <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-primary-foreground font-bold text-lg shadow-md">
@@ -44,14 +53,17 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <div className="space-y-2">
+      <div className="space-y-2 flex-1">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 py-2">
           Navigation
         </p>
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() => {
+              setActiveTab(tab.id as any)
+              onNavigate?.()
+            }}
             className={`w-full text-left px-4 py-3.5 rounded-xl transition-all duration-200 group ${
               activeTab === tab.id
                 ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
@@ -72,24 +84,52 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       </div>
 
       {/* Quick Info Card */}
-      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
-        onClick={() => setActiveTab("chatbot")}>
+      <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 shadow-md mt-auto">
         <div className="p-4 space-y-3">
           <div className="flex items-center gap-2">
-            <MessageCircle className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
-            <p className="text-sm font-semibold text-foreground">AI Learning Assistant</p>
+            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            <p className="text-sm font-semibold text-foreground">Market Open</p>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Chat with our AI assistant to learn about Bourse de Casablanca and get instant answers.
+            Bourse de Casablanca trading hours: 9:30 AM - 3:30 PM
           </p>
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-            <span className="text-xs text-primary font-medium group-hover:translate-x-1 transition-transform inline-block">
-              Start Chatting →
-            </span>
-          </div>
         </div>
       </Card>
+    </>
+  )
+}
+
+// Mobile sidebar trigger button component
+export function MobileSidebarTrigger({ activeTab, setActiveTab }: SidebarProps) {
+  const [open, setOpen] = useState(false)
+  
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="lg:hidden">
+          <Menu className="h-6 w-6" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-72 p-0">
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+        <div className="flex flex-col h-full p-6 gap-4">
+          <SidebarContent 
+            activeTab={activeTab} 
+            setActiveTab={setActiveTab} 
+            onNavigate={() => setOpen(false)}
+          />
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
+
+// Desktop sidebar
+export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
+  return (
+    <aside className="hidden lg:flex lg:w-72 bg-gradient-to-b from-card to-card/50 border-r border-border/50 flex-col p-6 gap-4 shadow-lg">
+      <SidebarContent activeTab={activeTab} setActiveTab={setActiveTab} />
     </aside>
   )
 }
