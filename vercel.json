@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/health",
+      "dest": "/api/health.py"
+    },
+    {
+      "src": "/api/market/snapshot",
+      "dest": "/api/market/snapshot.py"
+    },
+    {
+      "src": "/api/indices/masi/history",
+      "dest": "/api/indices/masi/history.py"
+    },
+    {
+      "src": "/api/ai/briefing",
+      "dest": "/api/ai/briefing.py"
+    },
+    {
+      "src": "/api/chat",
+      "dest": "/api/chat.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
