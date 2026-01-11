@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import LandingPage from "@/components/landing-page"
 import Header from "@/components/header"
 import Sidebar from "@/components/sidebar"
 import Footer from "@/components/footer"
@@ -10,19 +11,37 @@ import StockAnalysis from "@/components/stock-analysis"
 import RiskAnalysis from "@/components/risk-analysis"
 import BourseChatbot from "@/components/bourse-chatbot"
 
-export default function Dashboard() {
+export default function Home() {
+  const [showDashboard, setShowDashboard] = useState(false)
   const [activeTab, setActiveTab] = useState<"overview" | "stocks" | "risk" | "chatbot">("overview")
   const [riskProfile, setRiskProfile] = useState<"conservative" | "balanced" | "aggressive">("balanced")
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    // Check if user has visited before or is subscribed
+    const hasVisited = localStorage.getItem('hasVisitedDashboard')
+    const isSubscribed = localStorage.getItem('subscribed')
+    if (hasVisited || isSubscribed) {
+      setShowDashboard(true)
+    }
   }, [])
+
+  const handleEnterDashboard = () => {
+    localStorage.setItem('hasVisitedDashboard', 'true')
+    setShowDashboard(true)
+  }
 
   if (!mounted) {
     return null
   }
 
+  // Show landing page first
+  if (!showDashboard) {
+    return <LandingPage onEnterDashboard={handleEnterDashboard} />
+  }
+
+  // Show dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 text-foreground flex flex-col">
       <Header 
