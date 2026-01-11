@@ -21,9 +21,10 @@ interface HeaderProps {
   setRiskProfile: (profile: "conservative" | "balanced" | "aggressive") => void
   activeTab: "overview" | "stocks" | "risk" | "chatbot"
   setActiveTab: (tab: "overview" | "stocks" | "risk" | "chatbot") => void
+  onLogoClick?: () => void
 }
 
-export default function Header({ riskProfile, setRiskProfile, activeTab, setActiveTab }: HeaderProps) {
+export default function Header({ riskProfile, setRiskProfile, activeTab, setActiveTab, onLogoClick }: HeaderProps) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [marketData, setMarketData] = useState<any>(null)
@@ -58,15 +59,18 @@ export default function Header({ riskProfile, setRiskProfile, activeTab, setActi
         {/* Mobile Menu + Logo & Title */}
         <div className="flex items-center gap-2">
           <MobileSidebarTrigger activeTab={activeTab} setActiveTab={setActiveTab} />
-          <div className="flex items-center gap-3">
-          <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-md">
-            <TrendingUp className="text-primary-foreground h-6 w-6" />
-          </div>
-            <div>
+          <button 
+            onClick={onLogoClick}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
+            <div className="w-11 h-11 bg-[#4A5568] rounded-xl flex items-center justify-center shadow-md">
+              <TrendingUp className="text-white h-6 w-6" />
+            </div>
+            <div className="text-left">
               <h1 className="text-lg sm:text-xl font-bold text-foreground">Casablanca Exchange</h1>
               <p className="text-xs text-muted-foreground hidden sm:block">AI-Powered Market Intelligence</p>
             </div>
-          </div>
+          </button>
         </div>
 
         {/* Market Status */}

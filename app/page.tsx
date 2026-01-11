@@ -19,17 +19,16 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true)
-    // Check if user has visited before or is subscribed
-    const hasVisited = localStorage.getItem('hasVisitedDashboard')
-    const isSubscribed = localStorage.getItem('subscribed')
-    if (hasVisited || isSubscribed) {
-      setShowDashboard(true)
-    }
+    // Always show landing page first
   }, [])
 
   const handleEnterDashboard = () => {
     localStorage.setItem('hasVisitedDashboard', 'true')
     setShowDashboard(true)
+  }
+
+  const handleBackToLanding = () => {
+    setShowDashboard(false)
   }
 
   if (!mounted) {
@@ -49,6 +48,7 @@ export default function Home() {
         setRiskProfile={setRiskProfile} 
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        onLogoClick={handleBackToLanding}
       />
 
       <div className="flex flex-1 overflow-hidden">

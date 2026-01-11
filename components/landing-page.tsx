@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { 
-  TrendingUp, Shield, Brain, Zap, 
-  Check, ArrowRight, Star, LineChart, PieChart,
-  Lock, CreditCard, ChevronRight
+  TrendingUp, Shield, Brain, 
+  Check, ArrowRight, LineChart, PieChart,
+  Lock, CreditCard
 } from "lucide-react"
 
 interface LandingPageProps {
@@ -57,23 +56,20 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
-      <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-sm">
+      <header className="border-b border-slate-200/60 sticky top-0 z-50 bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <button 
-            onClick={onEnterDashboard}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-          >
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-[#4A5568] flex items-center justify-center shadow-lg">
               <TrendingUp className="h-5 w-5 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="font-semibold text-lg text-slate-900">Casablanca Exchange</h1>
+              <h1 className="font-semibold text-lg text-slate-800">Casablanca Exchange</h1>
               <p className="text-xs text-slate-500">AI-Powered Market Intelligence</p>
             </div>
-          </button>
-          <Button onClick={onEnterDashboard} className="bg-blue-600 hover:bg-blue-700">
+          </div>
+          <Button onClick={onEnterDashboard} className="bg-[#4A5568] hover:bg-[#3D4852] shadow-md">
             Go to Dashboard
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
@@ -81,21 +77,25 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-20 pb-16">
+      <section className="container mx-auto px-4 pt-24 pb-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-sm text-slate-600 mb-8">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            Live Market Data
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
             Master the{" "}
-            <span className="text-blue-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A5568] to-[#718096]">
               Moroccan Stock Market
             </span>
           </h1>
-          <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto">
-            Professional analytics and AI insights for the Bourse de Casablanca.
+          <p className="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+            Professional analytics and AI-powered insights for the Bourse de Casablanca. Make smarter investment decisions.
           </p>
           <Button 
             size="lg" 
             onClick={onEnterDashboard}
-            className="bg-blue-600 hover:bg-blue-700 text-lg px-8"
+            className="bg-[#4A5568] hover:bg-[#3D4852] text-lg px-10 py-6 shadow-xl shadow-slate-300/50"
           >
             Enter Dashboard
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -103,26 +103,27 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
         </div>
 
         {/* Stats */}
-        <div className="mt-12 grid grid-cols-4 gap-4 max-w-lg mx-auto">
+        <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-2xl mx-auto">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{stat.value}</div>
-              <div className="text-xs text-slate-500">{stat.label}</div>
+            <div key={stat.label} className="text-center p-4 bg-white rounded-2xl shadow-sm border border-slate-100">
+              <div className="text-3xl font-bold text-[#4A5568]">{stat.value}</div>
+              <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 border-t border-slate-100">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center text-slate-800 mb-12">Key Features</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {features.map((feature) => (
-              <div key={feature.title} className="text-center p-6">
-                <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="h-6 w-6 text-blue-600" />
+              <div key={feature.title} className="text-center p-8 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-colors">
+                <div className="h-14 w-14 rounded-2xl bg-[#4A5568] flex items-center justify-center mx-auto mb-5 shadow-lg">
+                  <feature.icon className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                <h3 className="font-semibold text-slate-800 mb-2">{feature.title}</h3>
                 <p className="text-sm text-slate-500">{feature.description}</p>
               </div>
             ))}
@@ -131,28 +132,30 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-slate-100">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">
               Simple Pricing
             </h2>
             <p className="text-slate-600">
-              One plan, all features
+              One plan, all features included
             </p>
           </div>
 
           <div className="max-w-sm mx-auto">
-            <Card className="border border-blue-200 shadow-sm">
-              <CardHeader className="text-center pb-4">
-                <CardTitle className="text-xl mb-2">Pro Plan</CardTitle>
+            <Card className="border-0 shadow-xl bg-white rounded-3xl overflow-hidden">
+              <div className="bg-[#4A5568] p-4 text-center">
+                <span className="text-white font-medium">Pro Plan</span>
+              </div>
+              <CardHeader className="text-center pt-8 pb-4">
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold">$1.99</span>
+                  <span className="text-5xl font-bold text-slate-800">$1.99</span>
                   <span className="text-slate-500">/month</span>
                 </div>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 mb-6">
+              <CardContent className="pb-8">
+                <ul className="space-y-4 mb-8">
                   {[
                     "Real-time market data",
                     "AI-powered briefings",
@@ -160,20 +163,24 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
                     "Technical indicators",
                     "Mobile dashboard"
                   ].map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm">
-                      <Check className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                    <li key={feature} className="flex items-center gap-3">
+                      <div className="h-5 w-5 rounded-full bg-[#4A5568] flex items-center justify-center flex-shrink-0">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
                       <span className="text-slate-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
                 {showSuccess ? (
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <Check className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <p className="font-medium text-blue-700 mb-3">Subscribed!</p>
+                  <div className="text-center p-4 bg-slate-50 rounded-xl">
+                    <div className="h-10 w-10 rounded-full bg-[#4A5568] flex items-center justify-center mx-auto mb-3">
+                      <Check className="h-5 w-5 text-white" />
+                    </div>
+                    <p className="font-medium text-slate-700 mb-3">Subscribed!</p>
                     <Button 
                       onClick={onEnterDashboard}
-                      className="bg-blue-600 hover:bg-blue-700 w-full"
+                      className="bg-[#4A5568] hover:bg-[#3D4852] w-full"
                     >
                       Go to Dashboard
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -183,7 +190,8 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
                   <Button 
                     onClick={handleSubscribe}
                     disabled={isSubscribing}
-                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    size="lg"
+                    className="w-full bg-[#4A5568] hover:bg-[#3D4852] shadow-lg"
                   >
                     {isSubscribing ? (
                       <>
@@ -193,16 +201,16 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
                     ) : (
                       <>
                         <Lock className="mr-2 h-4 w-4" />
-                        Subscribe
+                        Subscribe Now
                       </>
                     )}
                   </Button>
                 )}
 
-                <div className="flex items-center justify-center gap-4 mt-4 text-xs text-slate-400">
+                <div className="flex items-center justify-center gap-6 mt-5 text-xs text-slate-400">
                   <div className="flex items-center gap-1">
                     <Lock className="h-3 w-3" />
-                    Secure
+                    Secure Payment
                   </div>
                   <div className="flex items-center gap-1">
                     <CreditCard className="h-3 w-3" />
@@ -216,18 +224,15 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-slate-100">
+      <footer className="py-10 bg-white border-t border-slate-100">
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <button 
-              onClick={onEnterDashboard}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-            >
-              <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-xl bg-[#4A5568] flex items-center justify-center">
                 <TrendingUp className="h-4 w-4 text-white" />
               </div>
-              <span className="font-semibold text-slate-900">Casablanca Exchange</span>
-            </button>
+              <span className="font-semibold text-slate-800">Casablanca Exchange</span>
+            </div>
             <p className="text-sm text-slate-500">
               © 2026 Casablanca Exchange. All rights reserved.
             </p>
