@@ -11,7 +11,7 @@ import {
   TrendingUp, TrendingDown, Activity, BarChart3, PieChart, 
   Target, AlertTriangle, ThumbsUp, ThumbsDown, Minus,
   Calendar, Clock, DollarSign, Percent, ArrowUpRight, ArrowDownRight,
-  X
+  X, ArrowLeft
 } from "lucide-react"
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -146,20 +146,31 @@ export default function StockDetailModal({ stock, open, onClose }: StockDetailMo
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b p-6">
+        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b p-4 sm:p-6">
+          {/* Back Button */}
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={onClose}
+            className="mb-3 -ml-2 gap-2 text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Back to Stocks</span>
+          </Button>
+          
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
               <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <span className="text-lg font-bold text-primary">{stock.symbol.slice(0, 2)}</span>
               </div>
               <div>
-                <DialogTitle className="text-2xl font-bold">{stock.symbol}</DialogTitle>
-                <DialogDescription className="text-base">{stock.name}</DialogDescription>
+                <DialogTitle className="text-xl sm:text-2xl font-bold">{stock.symbol}</DialogTitle>
+                <DialogDescription className="text-sm sm:text-base">{stock.name}</DialogDescription>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold">{stock.price.toFixed(2)} MAD</div>
-              <div className={`flex items-center justify-end gap-1 text-lg font-semibold ${
+              <div className="text-2xl sm:text-3xl font-bold">{stock.price.toFixed(2)} MAD</div>
+              <div className={`flex items-center justify-end gap-1 text-base sm:text-lg font-semibold ${
                 isPositive ? "text-emerald-600" : "text-red-600"
               }`}>
                 {isPositive ? <ArrowUpRight className="h-5 w-5" /> : <ArrowDownRight className="h-5 w-5" />}
