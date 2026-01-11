@@ -1,0 +1,20 @@
+# Data Pipeline Configuration
+# ===========================
+
+# Data Source Settings
+data_source:
+  primary_source: casablanca_bourse
+  enable_yahoo_fallback: true
+  enable_alphavantage: false
+  alphavantage_api_key: null  # Set your API key here or use environment variable
+  cache_duration_minutes: 5
+  request_timeout_seconds: 10
+  max_retries: 3
+
+# Logging Configuration
+log_level: INFO  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+log_file: logs/pipeline.log  # Set to null to disable file logging
+
+# Pipeline Behavior
+enable_data_validation: true
+auto_fallback: true  # Automatically switch to fallback source on primary failure

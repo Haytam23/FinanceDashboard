@@ -1,0 +1,35 @@
+# Casablanca Stock Exchange Data Pipeline - Python Dependencies
+# ==============================================================
+
+# Core Dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+pydantic>=2.0.0
+python-dateutil>=2.8.0
+
+# Data Sources
+yfinance>=0.2.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# AI/ML
+openai>=1.0.0
+
+# Timezone Handling
+pytz>=2023.3
+
+# Configuration
+PyYAML>=6.0
+
+# Optional: For enhanced web scraping
+lxml>=4.9.0
+html5lib>=1.1
+
+# Testing (development)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Code Quality (development)
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
